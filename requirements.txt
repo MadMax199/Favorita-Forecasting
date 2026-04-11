@@ -1,0 +1,10 @@
+kaggle
+polars
+seaborn
+matplotlib
+pandas
+numpy
+scikit-learn
+neuralforecast
+lightgbm
+torch
