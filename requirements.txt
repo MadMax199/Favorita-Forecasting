@@ -7,4 +7,5 @@ numpy
 scikit-learn
 neuralforecast
 lightgbm
+holidays
 torch
