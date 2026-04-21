@@ -135,9 +135,6 @@ def add_difference_features(df):
     ])
 
 
-# ──────────────────────────────────────────────
-# Neue Features (Favorita-spezifisch)
-# ──────────────────────────────────────────────
 
 def add_oil_features(df, oil_df):
     """
