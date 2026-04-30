@@ -26,21 +26,27 @@ def add_lag(df, lags, group_col="store_nbr", target_col="transactions"):
 
 def add_rolling_mean(df, window_sizes, group_col="store_nbr", target_col="transactions"):
     """
-    Rolling-Mean-Features.
-
+    Erstellt rollierende Durchschnittswerte für die Zielvariable.
+    
+    WICHTIG (Wissenschaftliche Anmerkung): 
+    Wir verwenden .shift(1) vor der Berechnung des rolling_mean. 
+    Dadurch wird sichergestellt, dass der aktuelle Zielwert (t) nicht in die 
+    Berechnung des Features einfließt. Das Modell sieht somit nur die Historie 
+    (t-1, t-2, ...) und kein "Data Leakage" findet statt.
+    
     Sinnvolle Window-Größen für tägliche Daten:
-        7  → Wochenmittel
+        7  → Wochenmittel (erfasst wöchentliche Trends)
         14 → Zweiwochenmittel
-        28 → Monatsmittel
+        28 → Monatsmittel (erfasst langfristige Trends)
     """
     return df.with_columns([
         pl.col(target_col)
+        .shift(1)  # Verschiebt die Daten um einen Tag zurück (Ex-ante Sicht)
         .rolling_mean(window_size=w)
         .over(group_col)
         .alias(f"rolling_mean_{w}_days")
         for w in window_sizes
     ])
-
 
 def add_momentum_features(df, over="store_nbr", target_col="transactions"):
     """
