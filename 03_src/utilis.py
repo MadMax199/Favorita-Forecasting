@@ -234,3 +234,16 @@ def load_preds(fname):
         return pl.read_parquet(path)
     print(f'⚠  {fname} nicht gefunden — wird übersprungen')
     return None
+
+# ── 6 · NF to Polars ─────────────────────────────────────────────────────────────
+
+
+
+def nf_to_polars(preds_pd, model_col, pred_col, ref_df):
+    return (
+        pl.from_pandas(preds_pd.reset_index())
+        .rename({'unique_id': 'store_nbr', 'ds': 'date', model_col: pred_col})
+        .with_columns([pl.col('store_nbr').cast(pl.Int64), pl.col('date').cast(pl.Date)])
+        .join(ref_df.select(['store_nbr', 'date', TARGET_COL]).rename({TARGET_COL: 'y_true'}),
+              on=['store_nbr', 'date'], how='left')
+    )
