@@ -23,6 +23,9 @@ Implementierung eines hybriden Benchmarking-Systems, das drei Modell-Generatione
 * **Deep Learning (PatchTST, NHITS):** Einsatz von Transformer-basierten Architekturen, die multivariate Abhängigkeiten über "Patches" (Zeitfenster) hinweg lernen.
 * **Probabilistische & Statistische Modelle (Prophet, SARIMAX):** Einsatz als Baseline zur Validierung der Modell-Komplexität.
 
+### 4. Ergebnis
+
+
 ## 📂 Repository-Struktur
 
 ```text
@@ -32,3 +35,6 @@ Implementierung eines hybriden Benchmarking-Systems, das drei Modell-Generatione
 ├── 04_notebooks/               # Workflow von EDA bis Evaluierung
 ├── requirements_clean.txt      # Projekt-Abhängigkeiten
 └── README.md                   # Projektdokumentation
+
+
+
