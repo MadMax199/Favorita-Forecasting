@@ -5,6 +5,7 @@ from pathlib import Path
 RAW       = Path('..') / '02_data' / 'raw'
 PROCESSED = Path('..') / '02_data' / 'processed'
 FINAL     = Path('..') / '02_data' / 'final'
+RESULTS = FINAL / 'results'
 
 # ── Spalten ──────────────────────────────────────────────────────────────────
 TARGET_COL = 'transactions'
@@ -37,3 +38,31 @@ VAL_END   = pl.date(2017,  5, 31)   # Val:   2017-01-01 → 2017-05-31
 
 LOOKBACK = 336   # Kontextfenster in Tagen (~1 Jahr Wochenmuster)
 HORIZON  =  30   # Forecast-Horizont in Tagen
+
+
+MODELL_ORDER  = ['SARIMAX', 'Prophet', 'XGBoost', 'LightGBM', 'PatchTST', 'NHITS']
+FILE_NAMES = {
+    'SARIMAX':  'sarimax',
+    'Prophet':  'prophet',
+    'XGBoost':  'xgb',    
+    'LightGBM': 'lgbm',      
+    'PatchTST': 'patchtst',
+    'NHITS':    'nhits',
+}
+MODELL_COLORS = {
+    'SARIMAX':  'royalblue',
+    'Prophet':  'darkorange',
+    'XGBoost':  'seagreen',
+    'LightGBM': 'purple',
+    'PatchTST': 'tomato',
+    'NHITS':    'sienna',
+}
+PRED_COLS = {
+    'SARIMAX':  'pred_sarimax',
+    'Prophet':  'pred_prophet',
+    'XGBoost':  'pred_xgb',
+    'LightGBM': 'pred_lgbm',
+    'PatchTST': 'pred_patchtst',
+    'NHITS':    'pred_nhits',
+}
+

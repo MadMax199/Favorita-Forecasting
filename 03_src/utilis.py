@@ -9,7 +9,7 @@ import numpy as np
 # import pathlib  ← Duplikat, weg damit
 import pandas as pd
 
-from config import TARGET_COL, EXOG_COLS, HIST_EXOG, STAT_EXOG
+from config import TARGET_COL, EXOG_COLS, HIST_EXOG, STAT_EXOG, RESULTS
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
@@ -217,3 +217,20 @@ def to_nf_format(df):
         ])
         .to_pandas()
     )
+
+# ── 5 · Evaluation Part ─────────────────────────────────────────────────────────────
+
+
+
+def compute_metrics(y_true, y_pred, label, split):
+    mae  = mean_absolute_error(y_true, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    mape = np.mean(np.abs((y_true - y_pred) / np.where(y_true == 0, 1, y_true))) * 100
+    return {'modell': label, 'split': split, 'MAE': mae, 'RMSE': rmse, 'MAPE': mape}
+
+def load_preds(fname):
+    path = RESULTS / fname
+    if path.exists():
+        return pl.read_parquet(path)
+    print(f'⚠  {fname} nicht gefunden — wird übersprungen')
+    return None
